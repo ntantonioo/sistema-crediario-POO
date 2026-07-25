@@ -3,8 +3,6 @@ Sistema de Vendas de Crediário
 
 Mini sistema desenvolvido em Java para gerenciar vendas a crediário (venda parcelada com controle de limite de crédito por cliente).
 
-Descrição
-
 O sistema permite:
 
 - Cadastrar, pesquisar e remover Vendedores.
