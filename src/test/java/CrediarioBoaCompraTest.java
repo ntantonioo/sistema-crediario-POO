@@ -31,7 +31,7 @@ public class CrediarioBoaCompraTest {
 
     @Test
     public void testCadastrarEPesquisarVendedor() throws VendedorNaoEncontradoException {
-        Vendedor vendedor = new Vendedor("V1", "João", "111.111.111-11", 5.0);
+        Vendedor vendedor = new Vendedor("V1", "Abner", "111.111.111-11", 5.0);
         sistema.cadastrarVendedor(vendedor);
 
         Vendedor encontrado = sistema.pesquisarVendedorPorId("V1");
@@ -43,7 +43,7 @@ public class CrediarioBoaCompraTest {
 
     @Test
     public void testCadastrarEPesquisarCliente() throws ClienteNaoEncontradoException {
-        Cliente cliente = new Cliente("C1", "Maria", "222.222.222-22", "83999990000", 1000.0);
+        Cliente cliente = new Cliente("C1", "Luiza", "222.222.222-22", "83999990000", 1000.0);
         sistema.cadastrarCliente(cliente);
 
         Cliente encontrado = sistema.pesquisarClientePorId("C1");
@@ -57,8 +57,8 @@ public class CrediarioBoaCompraTest {
     public void testCadastrarVendaComSucesso() throws ClienteNaoEncontradoException,
             VendedorNaoEncontradoException, LimiteCreditoExcedidoException {
 
-        Vendedor vendedor = new Vendedor("V1", "João", "111.111.111-11", 5.0);
-        Cliente cliente = new Cliente("C1", "Maria", "222.222.222-22", "83999990000", 1000.0);
+        Vendedor vendedor = new Vendedor("V1", "Abner", "111.111.111-11", 5.0);
+        Cliente cliente = new Cliente("C1", "Luiza", "222.222.222-22", "83999990000", 1000.0);
         sistema.cadastrarVendedor(vendedor);
         sistema.cadastrarCliente(cliente);
 
@@ -76,8 +76,8 @@ public class CrediarioBoaCompraTest {
     public void testCadastrarVendaExcedeLimiteLancaExcecao() throws ClienteNaoEncontradoException,
             VendedorNaoEncontradoException {
 
-        Vendedor vendedor = new Vendedor("V1", "João", "111.111.111-11", 5.0);
-        Cliente cliente = new Cliente("C1", "Maria", "222.222.222-22", "83999990000", 100.0);
+        Vendedor vendedor = new Vendedor("V1", "Abner", "111.111.111-11", 5.0);
+        Cliente cliente = new Cliente("C1", "Luiza", "222.222.222-22", "83999990000", 100.0);
         sistema.cadastrarVendedor(vendedor);
         sistema.cadastrarCliente(cliente);
 
@@ -90,8 +90,8 @@ public class CrediarioBoaCompraTest {
     public void testRemoverVendedorClienteVenda() throws ClienteNaoEncontradoException,
             VendedorNaoEncontradoException, LimiteCreditoExcedidoException, VendaNaoEncontradaException {
 
-        Vendedor vendedor = new Vendedor("V1", "João", "111.111.111-11", 5.0);
-        Cliente cliente = new Cliente("C1", "Maria", "222.222.222-22", "83999990000", 1000.0);
+        Vendedor vendedor = new Vendedor("V1", "Abner", "111.111.111-11", 5.0);
+        Cliente cliente = new Cliente("C1", "Luiza", "222.222.222-22", "83999990000", 1000.0);
         sistema.cadastrarVendedor(vendedor);
         sistema.cadastrarCliente(cliente);
 
@@ -112,8 +112,8 @@ public class CrediarioBoaCompraTest {
     public void testListarVendasPorVendedor() throws ClienteNaoEncontradoException,
             VendedorNaoEncontradoException, LimiteCreditoExcedidoException {
 
-        Vendedor vendedor = new Vendedor("V1", "João", "111.111.111-11", 5.0);
-        Cliente cliente = new Cliente("C1", "Maria", "222.222.222-22", "83999990000", 1000.0);
+        Vendedor vendedor = new Vendedor("V1", "Abner", "111.111.111-11", 5.0);
+        Cliente cliente = new Cliente("C1", "Luiza", "222.222.222-22", "83999990000", 1000.0);
         sistema.cadastrarVendedor(vendedor);
         sistema.cadastrarCliente(cliente);
 
@@ -133,8 +133,8 @@ public class CrediarioBoaCompraTest {
     public void testSalvarERecuperarDados() throws ClienteNaoEncontradoException,
             VendedorNaoEncontradoException, LimiteCreditoExcedidoException, IOException {
 
-        Vendedor vendedor = new Vendedor("V1", "João", "111.111.111-11", 5.0);
-        Cliente cliente = new Cliente("C1", "Maria", "222.222.222-22", "83999990000", 1000.0);
+        Vendedor vendedor = new Vendedor("V1", "Abner", "111.111.111-11", 5.0);
+        Cliente cliente = new Cliente("C1", "Luiza", "222.222.222-22", "83999990000", 1000.0);
         sistema.cadastrarVendedor(vendedor);
         sistema.cadastrarCliente(cliente);
         sistema.cadastrarVenda(new Venda("VD1", cliente, vendedor, 300.0, 3, LocalDate.now()));
@@ -144,8 +144,8 @@ public class CrediarioBoaCompraTest {
         SistemaCrediario novoSistema = new CrediarioBoaCompra();
         novoSistema.recuperarDados();
 
-        assertEquals("João", novoSistema.pesquisarVendedorPorId("V1").getNome());
-        assertEquals("Maria", novoSistema.pesquisarClientePorId("C1").getNome());
+        assertEquals("Abner", novoSistema.pesquisarVendedorPorId("V1").getNome());
+        assertEquals("Luiza", novoSistema.pesquisarClientePorId("C1").getNome());
         assertFalse(novoSistema.pesquisarVendasPorCliente("C1").isEmpty());
     }
 }
