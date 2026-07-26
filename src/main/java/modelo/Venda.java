@@ -4,7 +4,6 @@ import java.time.LocalDate;
 
 public class Venda {
 
-    //Parametros para a construção da Classe Venda
     private String id;
     private Cliente cliente;
     private Vendedor vendedor;

@@ -1,6 +1,7 @@
 package servico;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,10 +21,6 @@ import persistencia.GravadorDeDados;
  * Utiliza Maps para armazenar Vendedores, Clientes e Vendas.
  */
 public class CrediarioBoaCompra implements SistemaCrediario {
-
-    private static final String ARQUIVO_VENDEDORES = "vendedores.csv";
-    private static final String ARQUIVO_CLIENTES = "clientes.csv";
-    private static final String ARQUIVO_VENDAS = "vendas.csv";
 
     private Map<String, Vendedor> vendedores = new HashMap<>();
     private Map<String, Cliente> clientes = new HashMap<>();
@@ -144,33 +141,33 @@ public class CrediarioBoaCompra implements SistemaCrediario {
                 .sum();
     }
 
-    //PERSISTENCIA
+    //PERSISNTECIA
 
     @Override
     public void salvarDados() throws IOException {
-        gravadorDeDados.salvarVendedores(vendedores.values(), ARQUIVO_VENDEDORES);
-        gravadorDeDados.salvarClientes(clientes.values(), ARQUIVO_CLIENTES);
-        gravadorDeDados.salvarVendas(vendas.values(), ARQUIVO_VENDAS);
+        gravadorDeDados.salvarVendedores(vendedores.values());
+        gravadorDeDados.salvarClientes(clientes.values());
+        gravadorDeDados.salvarVendas(vendas.values());
     }
 
     @Override
     public void recuperarDados() throws IOException {
-        List<Vendedor> listaVendedores = gravadorDeDados.recuperarVendedores(ARQUIVO_VENDEDORES);
-        List<Cliente> listaClientes = gravadorDeDados.recuperarClientes(ARQUIVO_CLIENTES);
+        Collection<Vendedor> colecaoVendedores = gravadorDeDados.recuperarVendedores();
+        Collection<Cliente> colecaoClientes = gravadorDeDados.recuperarClientes();
 
         vendedores = new HashMap<>();
-        for (Vendedor v : listaVendedores) {
+        for (Vendedor v : colecaoVendedores) {
             vendedores.put(v.getId(), v);
         }
 
         clientes = new HashMap<>();
-        for (Cliente c : listaClientes) {
+        for (Cliente c : colecaoClientes) {
             clientes.put(c.getId(), c);
         }
 
-        List<Venda> listaVendas = gravadorDeDados.recuperarVendas(ARQUIVO_VENDAS, clientes, vendedores);
+        Collection<Venda> colecaoVendas = gravadorDeDados.recuperarVendas(clientes, vendedores);
         vendas = new HashMap<>();
-        for (Venda venda : listaVendas) {
+        for (Venda venda : colecaoVendas) {
             vendas.put(venda.getId(), venda);
         }
     }

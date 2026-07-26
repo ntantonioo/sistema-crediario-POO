@@ -1,11 +1,11 @@
 package modelo;
 
+/**
+ * Classe abstract que guarda parametros que se repetem, assim evitando um código de "macarrão", ou seja, bagunçado
+ * ela guarda o id, nome e cpf. As outras classes implentam ela para buscar certos valores
+ */
 public abstract class Pessoa {
-    /**
-     * A classe Pessoa foi feita para ser uma classe Abstrata que guarda parametros ultilizados
-    tanto pela classe Cliente como pela Vendedor.
-     * Evita repetições de parametros como "id","nome","cpf"
-     */
+
     private String id;
     private String nome;
     private String cpf;
@@ -16,6 +16,7 @@ public abstract class Pessoa {
         this.cpf = cpf;
     }
 
+    //Métodos Getters e Setters
     public String getId() {
         return id;
     }

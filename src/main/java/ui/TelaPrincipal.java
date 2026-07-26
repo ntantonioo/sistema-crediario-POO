@@ -26,7 +26,7 @@ import servico.CrediarioBoaCompra;
 import servico.SistemaCrediario;
 
 /**
- * Interface gráfica do Sistema de Vendas de Crediário.
+ * Interface gráfica (Swing) do Sistema de Vendas de Crediário.
  * Apresenta uma barra de menu com as funcionalidades do sistema.
  */
 public class TelaPrincipal extends JFrame {
@@ -51,7 +51,7 @@ public class TelaPrincipal extends JFrame {
     private JMenuBar criarBarraDeMenu() {
         JMenuBar menuBar = new JMenuBar();
 
-        // Menu do Vendedor (Cadastro; Pesquisa por nome; remoção)
+        //MENU VENDEDOR
         JMenu menuVendedor = new JMenu("Vendedor");
         JMenuItem itemCadastrarVendedor = new JMenuItem("Cadastrar");
         JMenuItem itemPesquisarVendedor = new JMenuItem("Pesquisar por nome");
@@ -78,7 +78,7 @@ public class TelaPrincipal extends JFrame {
         menuVendedor.add(itemPesquisarVendedor);
         menuVendedor.add(itemRemoverVendedor);
 
-        // Menu do Cliente (Cadastro; Listagem de limite disponível para compra; Remoção)
+        // MENU CLIENTE
         JMenu menuCliente = new JMenu("Cliente");
         JMenuItem itemCadastrarCliente = new JMenuItem("Cadastrar");
         JMenuItem itemListarClientesLimite = new JMenuItem("Listar com limite disponível");
@@ -105,7 +105,7 @@ public class TelaPrincipal extends JFrame {
         menuCliente.add(itemListarClientesLimite);
         menuCliente.add(itemRemoverCliente);
 
-        // Menu da Venda (Cadastro; pesquisa por cliente; listagem de vendas por vendedor; total vendido por vendedor; remoção)
+        //MENU VENDA
         JMenu menuVenda = new JMenu("Venda");
         JMenuItem itemCadastrarVenda = new JMenuItem("Cadastrar");
         JMenuItem itemPesquisarVendasCliente = new JMenuItem("Pesquisar por cliente");
@@ -148,7 +148,7 @@ public class TelaPrincipal extends JFrame {
         menuVenda.add(itemTotalVendedor);
         menuVenda.add(itemRemoverVenda);
 
-        // Menu do Arquivo (Salvar os dados e recuperação dos dados)
+        //MENU ARQUIVO
         JMenu menuArquivo = new JMenu("Arquivo");
         JMenuItem itemSalvar = new JMenuItem("Salvar dados");
         JMenuItem itemRecuperar = new JMenuItem("Recuperar dados");
@@ -173,6 +173,8 @@ public class TelaPrincipal extends JFrame {
         menuBar.add(menuArquivo);
         return menuBar;
     }
+
+    //VENDEDOR
 
     private void cadastrarVendedor() {
         String id = JOptionPane.showInputDialog(this, "ID do vendedor:");
@@ -207,6 +209,8 @@ public class TelaPrincipal extends JFrame {
         }
     }
 
+    //CLIENTE
+
     private void cadastrarCliente() {
         String id = JOptionPane.showInputDialog(this, "ID do cliente:");
         if (id == null) return;
@@ -238,6 +242,8 @@ public class TelaPrincipal extends JFrame {
             JOptionPane.showMessageDialog(this, ex.getMessage());
         }
     }
+
+    //VENDA
 
     private void cadastrarVenda() {
         String id = JOptionPane.showInputDialog(this, "ID da venda:");
@@ -293,6 +299,8 @@ public class TelaPrincipal extends JFrame {
             JOptionPane.showMessageDialog(this, ex.getMessage());
         }
     }
+
+    //ARQUIVO E GRAVAÇÃO DE DADOS
 
     private void salvarDados() {
         try {

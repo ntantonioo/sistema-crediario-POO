@@ -2,20 +2,20 @@ package modelo;
 
 public class Cliente extends Pessoa {
 
-    //Atributos "únicos" para a Classe Cliente
-    // O restante dos atributos necessários para o cliente estão presentes na classe Pessoa
+    // Parametros pessoais da classe Cliente, o restante vem da classse abstrata Pessoa
     private String telefone;
     private double limiteCredito;
     private double limiteUtilizado;
 
-    // Construtor para a busca e/ou alteração de dados
     public Cliente(String id, String nome, String cpf, String telefone, double limiteCredito) {
+        // o super conecta o construtor da Pessoa para o construtor do Cliente
         super(id, nome, cpf);
         this.telefone = telefone;
         this.limiteCredito = limiteCredito;
         this.limiteUtilizado = 0.0;
     }
 
+    // Métodos Getters e Setters para a busca e alteração de valores
     public String getTelefone() {
         return telefone;
     }
@@ -44,7 +44,7 @@ public class Cliente extends Pessoa {
         return limiteCredito - limiteUtilizado;
     }
 
-    // toString para a saida da mensagem mais "bonitinha" e organizada na aba do Cliente
+    // toString para saída da resposta
     @Override
     public String toString() {
         return "Cliente{" +

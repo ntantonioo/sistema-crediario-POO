@@ -14,6 +14,7 @@ import modelo.Venda;
 /**
  * Interface (Façade) do Sistema de Vendas de Crediário.
  * Reúne as principais funcionalidades relacionadas a Vendedor, Cliente e Venda.
+ * Contando tambem com seus Exception
  */
 public interface SistemaCrediario {
 

@@ -2,11 +2,11 @@ package modelo;
 
 public class Vendedor extends Pessoa {
 
-    // Parametro da classe Vendedor
-    // O restante ja vêm da classe Pessoa (extends Pessoa)
+    // O Vendedor apenas possui o percentualComissao como parametro unico
     private double percentualComissao;
 
     public Vendedor(String id, String nome, String cpf, double percentualComissao) {
+        //super que vem da classe Pessoa
         super(id, nome, cpf);
         this.percentualComissao = percentualComissao;
     }
@@ -19,7 +19,6 @@ public class Vendedor extends Pessoa {
         this.percentualComissao = percentualComissao;
     }
 
-    // toString para a mensagem de saida do Vendedor mais organizada e estilizada
     @Override
     public String toString() {
         return "Vendedor{" +
