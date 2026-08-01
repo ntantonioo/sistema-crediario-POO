@@ -35,9 +35,9 @@ public class CrediarioBoaCompraTest {
         sistema.cadastrarVendedor(vendedor);
 
         Vendedor encontrado = sistema.pesquisarVendedorPorId("V1");
-        assertEquals("João", encontrado.getNome());
+        assertEquals("Abner", encontrado.getNome());
 
-        List<Vendedor> porNome = sistema.pesquisarVendedorPorNome("joão");
+        List<Vendedor> porNome = sistema.pesquisarVendedorPorNome("Abner");
         assertEquals(1, porNome.size());
     }
 
@@ -47,7 +47,7 @@ public class CrediarioBoaCompraTest {
         sistema.cadastrarCliente(cliente);
 
         Cliente encontrado = sistema.pesquisarClientePorId("C1");
-        assertEquals("Maria", encontrado.getNome());
+        assertEquals("Luiza", encontrado.getNome());
 
         List<Cliente> comLimite = sistema.listarClientesComLimiteDisponivel();
         assertEquals(1, comLimite.size());
