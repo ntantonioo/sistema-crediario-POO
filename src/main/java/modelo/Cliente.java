@@ -1,21 +1,22 @@
 package modelo;
 
-public class Cliente extends Pessoa {
+import java.io.Serializable;
 
-    // Parametros pessoais da classe Cliente, o restante vem da classse abstrata Pessoa
+public class Cliente extends Pessoa implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     private String telefone;
     private double limiteCredito;
     private double limiteUtilizado;
 
     public Cliente(String id, String nome, String cpf, String telefone, double limiteCredito) {
-        // o super conecta o construtor da Pessoa para o construtor do Cliente
         super(id, nome, cpf);
         this.telefone = telefone;
         this.limiteCredito = limiteCredito;
         this.limiteUtilizado = 0.0;
     }
 
-    // Métodos Getters e Setters para a busca e alteração de valores
     public String getTelefone() {
         return telefone;
     }
@@ -44,7 +45,6 @@ public class Cliente extends Pessoa {
         return limiteCredito - limiteUtilizado;
     }
 
-    // toString para saída da resposta
     @Override
     public String toString() {
         return "Cliente{" +

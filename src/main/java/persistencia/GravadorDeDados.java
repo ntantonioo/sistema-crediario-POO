@@ -1,158 +1,116 @@
 package persistencia;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.time.LocalDate;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-import java.util.Map;
 
 import modelo.Cliente;
-import modelo.StatusVenda;
 import modelo.Vendedor;
 import modelo.Venda;
 
 /**
- * Classe responsável pela persistência de dados em arquivo de texto (.txt),
- * gravando e recuperando os objetos do sistema. Cada linha do arquivo representa
- * um objeto, com os campos separados por ";". Por ser texto puro, o arquivo pode
- * ser aberto e conferido em qualquer editor de texto comum.
+ * Classe responsável pela persistência de dados em arquivo, por meio da
+ * gravação e recuperação de objetos (serialização).
  */
 public class GravadorDeDados {
 
-    public static final String NOME_ARQUIVO_VENDEDORES = "vendedores.txt";
-    public static final String NOME_ARQUIVO_CLIENTES = "clientes.txt";
-    public static final String NOME_ARQUIVO_VENDAS = "vendas.txt";
+    public static final String NOME_ARQUIVO_VENDEDORES = "vendedores.dat";
+    public static final String NOME_ARQUIVO_CLIENTES = "clientes.dat";
+    public static final String NOME_ARQUIVO_VENDAS = "vendas.dat";
 
-    private static final String SEPARADOR = ";";
+    //VENDEDOR
 
-    // VENDEDOR
     public void salvarVendedores(Collection<Vendedor> vendedores) throws IOException {
-        BufferedWriter writer = null;
+        ObjectOutputStream gravador = null;
         try {
-            writer = new BufferedWriter(new FileWriter(NOME_ARQUIVO_VENDEDORES));
-            for (Vendedor v : vendedores) {
-                writer.write(v.getId() + SEPARADOR + v.getNome() + SEPARADOR
-                        + v.getCpf() + SEPARADOR + v.getPercentualComissao());
-                writer.newLine();
-            }
+            gravador = new ObjectOutputStream(new FileOutputStream(NOME_ARQUIVO_VENDEDORES));
+            // Copia para uma ArrayList antes de gravar: vendedores.values() do Map
+            // retorna uma "view" (HashMap$Values) que NÃO é Serializable.
+            gravador.writeObject(new ArrayList<>(vendedores));
         } finally {
-            if (writer != null) {
-                writer.close();
+            if (gravador != null) {
+                gravador.close();
             }
         }
     }
 
-    public List<Vendedor> recuperarVendedores() throws IOException {
-        List<Vendedor> vendedores = new ArrayList<>();
-        BufferedReader reader = null;
+    @SuppressWarnings("unchecked")
+    public Collection<Vendedor> recuperarVendedores() throws IOException {
+        ObjectInputStream leitor = null;
         try {
-            reader = new BufferedReader(new FileReader(NOME_ARQUIVO_VENDEDORES));
-            String linha;
-            while ((linha = reader.readLine()) != null) {
-                if (linha.isBlank()) continue;
-                String[] campos = linha.split(SEPARADOR);
-                Vendedor v = new Vendedor(campos[0], campos[1], campos[2], Double.parseDouble(campos[3]));
-                vendedores.add(v);
-            }
+            leitor = new ObjectInputStream(new FileInputStream(NOME_ARQUIVO_VENDEDORES));
+            Collection<Vendedor> vendedoresRecuperados = (Collection<Vendedor>) leitor.readObject();
+            return vendedoresRecuperados;
+        } catch (ClassNotFoundException e) {
+            throw new IOException("Classe desconhecida: " + e.getMessage());
         } finally {
-            if (reader != null) {
-                reader.close();
+            if (leitor != null) {
+                leitor.close();
             }
         }
-        return vendedores;
     }
 
-    // CLIENTE
+    //CLIENTE
 
     public void salvarClientes(Collection<Cliente> clientes) throws IOException {
-        BufferedWriter writer = null;
+        ObjectOutputStream gravador = null;
         try {
-            writer = new BufferedWriter(new FileWriter(NOME_ARQUIVO_CLIENTES));
-            for (Cliente c : clientes) {
-                writer.write(c.getId() + SEPARADOR + c.getNome() + SEPARADOR + c.getCpf() + SEPARADOR
-                        + c.getTelefone() + SEPARADOR + c.getLimiteCredito() + SEPARADOR + c.getLimiteUtilizado());
-                writer.newLine();
-            }
+            gravador = new ObjectOutputStream(new FileOutputStream(NOME_ARQUIVO_CLIENTES));
+            gravador.writeObject(new ArrayList<>(clientes));
         } finally {
-            if (writer != null) {
-                writer.close();
+            if (gravador != null) {
+                gravador.close();
             }
         }
     }
 
-    public List<Cliente> recuperarClientes() throws IOException {
-        List<Cliente> clientes = new ArrayList<>();
-        BufferedReader reader = null;
+    @SuppressWarnings("unchecked")
+    public Collection<Cliente> recuperarClientes() throws IOException {
+        ObjectInputStream leitor = null;
         try {
-            reader = new BufferedReader(new FileReader(NOME_ARQUIVO_CLIENTES));
-            String linha;
-            while ((linha = reader.readLine()) != null) {
-                if (linha.isBlank()) continue;
-                String[] campos = linha.split(SEPARADOR);
-                Cliente c = new Cliente(campos[0], campos[1], campos[2], campos[3], Double.parseDouble(campos[4]));
-                c.setLimiteUtilizado(Double.parseDouble(campos[5]));
-                clientes.add(c);
-            }
+            leitor = new ObjectInputStream(new FileInputStream(NOME_ARQUIVO_CLIENTES));
+            Collection<Cliente> clientesRecuperados = (Collection<Cliente>) leitor.readObject();
+            return clientesRecuperados;
+        } catch (ClassNotFoundException e) {
+            throw new IOException("Classe desconhecida: " + e.getMessage());
         } finally {
-            if (reader != null) {
-                reader.close();
+            if (leitor != null) {
+                leitor.close();
             }
         }
-        return clientes;
     }
 
-    // VENDA
+    //VENDA
 
     public void salvarVendas(Collection<Venda> vendas) throws IOException {
-        BufferedWriter writer = null;
+        ObjectOutputStream gravador = null;
         try {
-            writer = new BufferedWriter(new FileWriter(NOME_ARQUIVO_VENDAS));
-            for (Venda venda : vendas) {
-                writer.write(venda.getId() + SEPARADOR + venda.getCliente().getId() + SEPARADOR
-                        + venda.getVendedor().getId() + SEPARADOR + venda.getValorTotal() + SEPARADOR
-                        + venda.getNumeroParcelas() + SEPARADOR + venda.getDataVenda() + SEPARADOR
-                        + venda.getStatus());
-                writer.newLine();
-            }
+            gravador = new ObjectOutputStream(new FileOutputStream(NOME_ARQUIVO_VENDAS));
+            gravador.writeObject(new ArrayList<>(vendas));
         } finally {
-            if (writer != null) {
-                writer.close();
+            if (gravador != null) {
+                gravador.close();
             }
         }
     }
 
-    /**
-     * Recupera as vendas relinkando cada uma ao respectivo Cliente e Vendedor,
-     * a partir dos Maps já carregados previamente (o arquivo de vendas guarda
-     * apenas os ids do cliente e do vendedor, não os dados inteiros).
-     */
-    public List<Venda> recuperarVendas(Map<String, Cliente> clientes, Map<String, Vendedor> vendedores)
-            throws IOException {
-        List<Venda> vendas = new ArrayList<>();
-        BufferedReader reader = null;
+    @SuppressWarnings("unchecked")
+    public Collection<Venda> recuperarVendas() throws IOException {
+        ObjectInputStream leitor = null;
         try {
-            reader = new BufferedReader(new FileReader(NOME_ARQUIVO_VENDAS));
-            String linha;
-            while ((linha = reader.readLine()) != null) {
-                if (linha.isBlank()) continue;
-                String[] campos = linha.split(SEPARADOR);
-                Cliente cliente = clientes.get(campos[1]);
-                Vendedor vendedor = vendedores.get(campos[2]);
-                Venda venda = new Venda(campos[0], cliente, vendedor, Double.parseDouble(campos[3]),
-                        Integer.parseInt(campos[4]), LocalDate.parse(campos[5]));
-                venda.setStatus(StatusVenda.valueOf(campos[6]));
-                vendas.add(venda);
-            }
+            leitor = new ObjectInputStream(new FileInputStream(NOME_ARQUIVO_VENDAS));
+            Collection<Venda> vendasRecuperadas = (Collection<Venda>) leitor.readObject();
+            return vendasRecuperadas;
+        } catch (ClassNotFoundException e) {
+            throw new IOException("Classe desconhecida: " + e.getMessage());
         } finally {
-            if (reader != null) {
-                reader.close();
+            if (leitor != null) {
+                leitor.close();
             }
         }
-        return vendas;
     }
 }

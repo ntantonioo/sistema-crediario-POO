@@ -90,7 +90,7 @@ public class CrediarioBoaCompra implements SistemaCrediario {
                 .collect(Collectors.toList());
     }
 
-    //VENDA
+        //VENDAA
 
     @Override
     public void cadastrarVenda(Venda venda)
@@ -141,7 +141,7 @@ public class CrediarioBoaCompra implements SistemaCrediario {
                 .sum();
     }
 
-    //PERSISNTECIA
+    //PERSISTENCIA
 
     @Override
     public void salvarDados() throws IOException {
@@ -154,6 +154,7 @@ public class CrediarioBoaCompra implements SistemaCrediario {
     public void recuperarDados() throws IOException {
         Collection<Vendedor> colecaoVendedores = gravadorDeDados.recuperarVendedores();
         Collection<Cliente> colecaoClientes = gravadorDeDados.recuperarClientes();
+        Collection<Venda> colecaoVendas = gravadorDeDados.recuperarVendas();
 
         vendedores = new HashMap<>();
         for (Vendedor v : colecaoVendedores) {
@@ -165,7 +166,6 @@ public class CrediarioBoaCompra implements SistemaCrediario {
             clientes.put(c.getId(), c);
         }
 
-        Collection<Venda> colecaoVendas = gravadorDeDados.recuperarVendas(clientes, vendedores);
         vendas = new HashMap<>();
         for (Venda venda : colecaoVendas) {
             vendas.put(venda.getId(), venda);

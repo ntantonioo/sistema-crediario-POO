@@ -1,8 +1,11 @@
 package modelo;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Venda {
+public class Venda implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private String id;
     private Cliente cliente;

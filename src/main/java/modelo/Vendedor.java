@@ -1,12 +1,14 @@
 package modelo;
 
-public class Vendedor extends Pessoa {
+import java.io.Serializable;
 
-    // O Vendedor apenas possui o percentualComissao como parametro unico
+public class Vendedor extends Pessoa implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     private double percentualComissao;
 
     public Vendedor(String id, String nome, String cpf, double percentualComissao) {
-        //super que vem da classe Pessoa
         super(id, nome, cpf);
         this.percentualComissao = percentualComissao;
     }

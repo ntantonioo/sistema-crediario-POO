@@ -1,10 +1,10 @@
 package modelo;
 
-/**
- * Classe abstract que guarda parametros que se repetem, assim evitando um código de "macarrão", ou seja, bagunçado
- * ela guarda o id, nome e cpf. As outras classes implentam ela para buscar certos valores
- */
-public abstract class Pessoa {
+import java.io.Serializable;
+
+public abstract class Pessoa implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private String id;
     private String nome;
@@ -16,7 +16,6 @@ public abstract class Pessoa {
         this.cpf = cpf;
     }
 
-    //Métodos Getters e Setters
     public String getId() {
         return id;
     }
