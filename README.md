@@ -17,4 +17,4 @@ A principal regra de negócio é o controle de limite disponível, caso não ten
 
 Equipe: 
 
-Antonio Ribeiro da Silva Neto, Abner Matheus dos Santos Silva, Luis Henrique Arruda dos Santos, Nicolas Lúcio Felix Fernandes, Henrique Andrade de Oliveira
+Antonio Ribeiro da Silva Neto, Nicolas Lúcio Felix Fernandes, Henrique Andrade de Oliveira
